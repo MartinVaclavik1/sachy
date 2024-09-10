@@ -9,12 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FXMLDocumentControllerTest {
 
+    private Figurka[][] sachovnice;
+
     private Comparator<Figurka[][]> comparator = new Comparator<Figurka[][]>() {
         @Override
         public int compare(Figurka[][] o1, Figurka[][] o2) {
-            for (int i = 0; i <o1.length ; i++) {
+            for (int i = 0; i < o1.length; i++) {
                 for (int j = 0; j < o1[0].length; j++) {
-                    if(o1[i][j] != null && o2[i][j] != null){
+                    if (o1[i][j] != null && o2[i][j] != null) {
                         if (o1[i][j].getTyp() == o2[i][j].getTyp() &&
                                 o1[i][j].isBily() == o2[i][j].isBily()) {
 
@@ -34,8 +36,8 @@ public class FXMLDocumentControllerTest {
 
     }
 
-    private Figurka[][] naplnSachovnici(){
-        Figurka[][] sachovnice = new Figurka[8][8];
+    private void naplnSachovnici() {
+        sachovnice = new Figurka[8][8];
 
         sachovnice[0][0] = new Figurka(null, TypFigurky.VEZ, false);
         sachovnice[0][1] = new Figurka(null, TypFigurky.STRELEC, false);
@@ -72,8 +74,11 @@ public class FXMLDocumentControllerTest {
         sachovnice[7][5] = new Figurka(null, TypFigurky.KUN, true);
         sachovnice[7][6] = new Figurka(null, TypFigurky.STRELEC, true);
         sachovnice[7][7] = new Figurka(null, TypFigurky.VEZ, true);
+    }
 
-        return sachovnice;
+    private void posun(int od1,int od2,int do1,int do2) {
+        sachovnice[do1][do2] = sachovnice[od1][od2];
+        sachovnice[od1][od2] = null;
     }
 
 
@@ -82,8 +87,21 @@ public class FXMLDocumentControllerTest {
         Sachovnice sachy = new Sachovnice();
         sachy.nastavFigurky();
         Figurka[][] actual = sachy.getSachovnice();
-        Figurka[][] expected = naplnSachovnici();
-        int vysledek = comparator.compare(expected,actual);
+        naplnSachovnici();
+        Figurka[][] expected = sachovnice;
+        int vysledek = comparator.compare(expected, actual);
         assertEquals(0, vysledek);
+    }
+
+    @Test
+    public void inicializace002() {
+        Sachovnice sachy = new Sachovnice();
+        sachy.nastavFigurky();
+        Figurka[][] actual = sachy.getSachovnice();
+        naplnSachovnici();
+        posun(1,0,3,0);
+        Figurka[][] expected = sachovnice;
+        int vysledek = comparator.compare(expected, actual);
+        assertNotEquals(0, vysledek);
     }
 }
