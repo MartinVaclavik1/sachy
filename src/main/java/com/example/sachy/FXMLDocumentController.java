@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-//TODO dodělat šach a šachmat
 
 public class FXMLDocumentController implements Initializable {
     @FXML
@@ -25,7 +24,7 @@ public class FXMLDocumentController implements Initializable {
         Scanner vstup = new Scanner(System.in);
 
         /*
-         * loop pro user input - zakomentovat pro testy, nebo pak předělat
+         * loop pro user input -TODO předělat na grafický input
          */
         while (true) {
             int odRadek = vstup.nextInt();

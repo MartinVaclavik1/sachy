@@ -1,6 +1,8 @@
 package com.example.sachy;
 
 public class Sachovnice {
+
+    //TODO dodělat šach a šachmat
     public Sachovnice() {
     }
 
